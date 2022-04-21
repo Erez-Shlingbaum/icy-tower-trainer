@@ -11,7 +11,7 @@ namespace OS {
 		{
 		}
 
-		Symbol& operator= (T value) const
+		Symbol& operator=(T value) const
 		{
 			process.write_memory<T>(this._offset, value);
 			return this;
