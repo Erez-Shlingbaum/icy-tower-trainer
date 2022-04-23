@@ -17,6 +17,8 @@ namespace OS
 		Handle(Handle&&) = default;
 		Handle& operator=(Handle&&) = default;
 
+		operator HANDLE() const;
+
 	private:
 		HANDLE _handle;
 	};
