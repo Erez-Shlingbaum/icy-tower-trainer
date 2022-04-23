@@ -7,6 +7,7 @@ namespace OS
 	{
 	}
 
-	Handle::~Handle()
-	{ CloseHandle(_handle); }
+	Handle::~Handle() { CloseHandle(_handle); }
+
+	Handle::operator HANDLE() const { return _handle; }
 }
