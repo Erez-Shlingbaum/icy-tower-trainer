@@ -8,7 +8,6 @@ namespace OS
 	{
 	public:
 		explicit Handle(HANDLE handle);
-
 		~Handle();
 
 		Handle(const Handle&) = delete;
@@ -16,6 +15,8 @@ namespace OS
 
 		Handle(Handle&&) = default;
 		Handle& operator=(Handle&&) = default;
+
+		operator HANDLE() const;
 
 	private:
 		HANDLE _handle;

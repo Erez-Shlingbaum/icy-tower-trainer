@@ -21,9 +21,23 @@
     <ClCompile Include="src\handle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\process.cpp">
+    <ClCompile Include="src\os_utils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="include\handle.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\process.hpp">
+    <ClInclude Include="include\os_utils.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\exceptions.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="include\trivial.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
