@@ -3,47 +3,29 @@
 #include <vector>
 
 #include "handle.hpp"
-#include "trivial.hpp"
 
 namespace OS
 {
-	using Byte = uint8_t;
-	using Buffer = std::vector<Byte>;
+	using Buffer = std::vector<std::byte>;
 
 	class Process
 	{
 	public:
-		/**
-		 * \throws WindowsException
-		 */
 		explicit Process(DWORD pid);
 
-		/**
-		 * \throws WindowsException
-		 */
 		[[nodiscard]] Buffer read_memory(uintptr_t address, size_t amount) const;
 
-		/**
-		 * \throws WindowsException
-		 */
-		template <Trivial T>
+		template <typename T> requires (std::is_trivial_v<T>)
 		[[nodiscard]] T read_memory(const uintptr_t address)
 		{
-			Buffer bytes = read_memory(address, sizeof(T));
 			T result{};
-			std::copy(bytes.begin(), bytes.end(), &result);
+			_read_process_memory(address, sizeof(T), result.data());
 			return result;
 		}
 
-		/**
-		 * \throws WindowsException
-		 */
-		void write_memory(uintptr_t address, std::span<const Byte> bytes) const;
+		void write_memory(uintptr_t address, std::span<const std::byte> bytes) const;
 
-		/**
-		 * \throws WindowsException
-		 */
-		template <Trivial T>
+		template <typename T> requires (std::is_trivial_v<T>)
 		void write_memory(uintptr_t address, const T& data) const
 		{
 			write_memory(address, std::span{data, sizeof(data)});
@@ -51,10 +33,8 @@ namespace OS
 
 
 	private:
-		/**
-		 * \throws WindowsException
-		 */
 		static Handle _open_process(DWORD pid);
+		void _read_process_memory(uintptr_t address, size_t amount, void* out_buffer) const;
 
 		Handle _handle;
 	};

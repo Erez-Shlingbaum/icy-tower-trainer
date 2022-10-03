@@ -4,7 +4,8 @@
 namespace OS {
 
 	template <typename T>
-	class Symbol {
+	class Symbol
+	{
 	public:
 		Symbol(std::shared_ptr<Process> process, size_t offset) :
 			_process(process), _offset(offset)
