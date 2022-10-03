@@ -1,6 +1,6 @@
 #pragma once
-#include <Windows.h>
 #include <stdexcept>
+#include <Windows.h>
 
 class WindowsException : std::runtime_error
 {
@@ -15,4 +15,10 @@ public:
 
 private:
 	DWORD _error_code;
+};
+
+class NullPointerException : public std::exception
+{
+public:
+	using std::exception
 };
