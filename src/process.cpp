@@ -8,20 +8,15 @@ namespace OS
 	{
 	}
 
-	Buffer Process::read_memory(const uintptr_t address, const size_t amount) const
+	Buffer Process::read_memory(uintptr_t address, size_t amount) const
 	{
 		Buffer result{};
 		result.resize(amount);
-
-		if (!ReadProcessMemory(_handle, reinterpret_cast<LPCVOID>(address), result.data(), amount, nullptr))
-		{
-			throw WindowsException();
-		}
-
+		_read_process_memory(address, amount, result.data());
 		return result;
 	}
 
-	void Process::write_memory(uintptr_t address, std::span<const Byte> bytes) const
+	void Process::write_memory(uintptr_t address, std::span<const std::byte> bytes) const
 	{
 		if (!WriteProcessMemory(_handle, reinterpret_cast<LPVOID>(address), bytes.data(), bytes.size(), nullptr))
 		{
@@ -33,6 +28,13 @@ namespace OS
 	{
 		const HANDLE handle = OpenProcess(PROCESS_VM_READ | PROCESS_VM_WRITE | PROCESS_VM_OPERATION, FALSE, pid);
 		if (handle == nullptr) { throw WindowsException(); }
-		return Handle{handle};
+		return Handle{ handle };
+	}
+	void Process::_read_process_memory(uintptr_t address, size_t amount, void* out_buffer) const
+	{
+		if (!ReadProcessMemory(_handle, reinterpret_cast<LPCVOID>(address), out_buffer, amount, nullptr))
+		{
+			throw WindowsException();
+		}
 	}
 }

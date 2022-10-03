@@ -4,15 +4,22 @@
 
 int main()
 {
-	auto p = OS::get_running_processes();
+	const OS::ProcessList process_list{};
+	auto result = std::find_if(process_list.begin(), process_list.end(), [](const auto& process) {
+		return std::string_view{ process.szExeFile } == "icytower13.exe";
+		}
+	);
 
-	auto result = std::find_if(p.begin(), p.end(), [](const auto& process)
+	if (result == process_list.end())
 	{
-		return std::string_view{process.szExeFile} == "icytower13.exe";
-	});
+		std::cout << "Icytower not found" << std::endl;
+	}
+	else
+	{
+		std::cout << result->th32ProcessID << std::endl;
+	}
 
-	if (result == p.end()) { std::cout << "sad"; }
-	else { std::cout << result->th32ProcessID; }
+	system("pause");
 
 	return 0;
 }

@@ -14,15 +14,22 @@ namespace OS
 	class ProcessList
 	{
 	public:
-		class Iterator : public std::iterator<std::forward_iterator_tag, PROCESSENTRY32>
+		class Iterator
 		{
 		public:
+			using iterator_category = std::forward_iterator_tag;
+			using value_type = PROCESSENTRY32;
+			using pointer = PROCESSENTRY32*;
+			using reference = PROCESSENTRY32&;
+			using difference_type = std::ptrdiff_t;
+
+
 			Iterator();
 			explicit Iterator(const HANDLE snapshot_handle);
 
 			Iterator& operator++();
 
-			PROCESSENTRY32 operator*() const;
+			const PROCESSENTRY32& operator*() const;
 			const PROCESSENTRY32* operator->() const;
 
 			friend bool operator==(const Iterator& lhs, const Iterator& rhs)
@@ -57,6 +64,4 @@ namespace OS
 
 		Handle _snapshot_handle;
 	};
-
-	std::vector<PROCESSENTRY32> get_running_processes();
 }

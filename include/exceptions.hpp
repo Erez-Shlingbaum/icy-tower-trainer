@@ -20,5 +20,5 @@ private:
 class NullPointerException : public std::exception
 {
 public:
-	using std::exception
+	using std::exception::exception;
 };

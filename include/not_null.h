@@ -5,7 +5,7 @@
 namespace Utils
 {
 	template<typename T>
-	T* not_null(T* value) 
+	T* not_null(T* value)
 	{
 		if (value == nullptr)
 		{
