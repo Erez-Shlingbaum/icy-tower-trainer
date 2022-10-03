@@ -8,7 +8,6 @@ namespace OS
 	{
 	public:
 		explicit Handle(HANDLE handle);
-
 		~Handle();
 
 		Handle(const Handle&) = delete;
