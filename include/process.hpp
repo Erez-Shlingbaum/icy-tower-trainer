@@ -19,7 +19,7 @@ namespace OS
 		[[nodiscard]] T read_memory(const uintptr_t address)
 		{
 			T result{};
-			_read_process_memory(address, sizeof(T), result.data());
+			_read_process_memory(address, sizeof(T), &result);
 			return result;
 		}
 
