@@ -12,11 +12,11 @@ int main()
 
     if (result == process_list.end())
     {
-        std::cout << "sad";
+        std::cout << "Icytower not found" << std::endl;
     }
     else
     {
-        std::cout << result->th32ProcessID;
+        std::cout << result->th32ProcessID << std::endl;
     }
 
     return 0;

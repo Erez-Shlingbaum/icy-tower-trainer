@@ -84,4 +84,3 @@ namespace OS
         return std::vector<PROCESSENTRY32>{process_list.begin(), process_list.end()};
     }
 }
-	

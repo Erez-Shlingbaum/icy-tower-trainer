@@ -19,9 +19,9 @@ namespace OS
 		public:
 			using iterator_category = std::forward_iterator_tag;
 			using value_type = PROCESSENTRY32;
-			using difference_type = size_t;
 			using pointer = PROCESSENTRY32*;
 			using reference = PROCESSENTRY32&;
+			using difference_type = size_t;
 
 			Iterator();
 			explicit Iterator(HANDLE snapshot_handle);
