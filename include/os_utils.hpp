@@ -14,11 +14,17 @@ namespace OS
 	class ProcessList
 	{
 	public:
-		class Iterator : public std::iterator<std::forward_iterator_tag, PROCESSENTRY32>
+		class Iterator
 		{
 		public:
+			using iterator_category = std::forward_iterator_tag;
+			using value_type = PROCESSENTRY32;
+			using difference_type = size_t;
+			using pointer = PROCESSENTRY32*;
+			using reference = PROCESSENTRY32&;
+
 			Iterator();
-			explicit Iterator(const HANDLE snapshot_handle);
+			explicit Iterator(HANDLE snapshot_handle);
 
 			Iterator& operator++();
 
@@ -32,15 +38,6 @@ namespace OS
 
 			friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
 
-			friend bool operator<(const Iterator& lhs, const Iterator& rhs)
-			{
-				return lhs._is_iterator_consumed != rhs._is_iterator_consumed;
-			}
-
-			friend bool operator<=(const Iterator& lhs, const Iterator& rhs) { return !(rhs < lhs); }
-			friend bool operator>(const Iterator& lhs, const Iterator& rhs) { return rhs < lhs; }
-			friend bool operator>=(const Iterator& lhs, const Iterator& rhs) { return !(lhs < rhs); }
-
 		private:
 			HANDLE _snapshot_handle;
 			PROCESSENTRY32 _process_entry;
@@ -49,11 +46,11 @@ namespace OS
 
 		ProcessList();
 
-		Iterator begin() const;
-		Iterator end() const;
+		[[nodiscard]] Iterator begin() const;
+		[[nodiscard]] static Iterator end() ;
 
 	private:
-		static Handle _create_snapshot();
+		[[nodiscard]] static Handle _create_snapshot();
 
 		Handle _snapshot_handle;
 	};

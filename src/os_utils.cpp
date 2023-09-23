@@ -27,7 +27,6 @@ namespace OS
 	}
 
 	PROCESSENTRY32 ProcessList::Iterator::operator*() const { return _process_entry; }
-
 	const PROCESSENTRY32* ProcessList::Iterator::operator->() const { return &_process_entry; }
 
 	ProcessList::ProcessList():
@@ -36,8 +35,7 @@ namespace OS
 	}
 
 	ProcessList::Iterator ProcessList::begin() const { return Iterator{_snapshot_handle}; }
-
-	ProcessList::Iterator ProcessList::end() const { return Iterator{}; }
+	ProcessList::Iterator ProcessList::end() { return Iterator{}; }
 
 	Handle ProcessList::_create_snapshot()
 	{
@@ -49,10 +47,7 @@ namespace OS
 	std::vector<PROCESSENTRY32> get_running_processes()
 	{
 		const ProcessList process_list{};
-
-		std::vector<PROCESSENTRY32> result{};
-		std::copy(process_list.begin(), process_list.end(), std::back_inserter(result));
-
-		return result;
+        return (std::vector<PROCESSENTRY32>) {process_list.begin(), process_list.end()};
 	}
 }
+	
