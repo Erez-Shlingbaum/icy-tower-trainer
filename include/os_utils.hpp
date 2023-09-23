@@ -31,12 +31,9 @@ namespace OS
 			PROCESSENTRY32 operator*() const;
 			const PROCESSENTRY32* operator->() const;
 
-			friend bool operator==(const Iterator& lhs, const Iterator& rhs)
-			{
-				return lhs._is_iterator_consumed == rhs._is_iterator_consumed;
-			}
+			friend bool operator==(const Iterator& lhs, const Iterator& rhs);
 
-			friend bool operator!=(const Iterator& lhs, const Iterator& rhs) { return !(lhs == rhs); }
+			friend bool operator!=(const Iterator& lhs, const Iterator& rhs);
 
 		private:
 			HANDLE _snapshot_handle;

@@ -4,15 +4,20 @@
 
 int main()
 {
-	auto p = OS::get_running_processes();
+    std::vector<PROCESSENTRY32> process_list = OS::get_running_processes();
 
-	auto result = std::find_if(p.begin(), p.end(), [](const auto& process)
-	{
-		return std::string_view{process.szExeFile} == "icytower13.exe";
-	});
+    auto result = std::find_if(process_list.begin(), process_list.end(), [](const auto &process) {
+        return std::string_view{process.szExeFile} == "icytower13.exe";
+    });
 
-	if (result == p.end()) { std::cout << "sad"; }
-	else { std::cout << result->th32ProcessID; }
+    if (result == process_list.end())
+    {
+        std::cout << "sad";
+    }
+    else
+    {
+        std::cout << result->th32ProcessID;
+    }
 
-	return 0;
+    return 0;
 }

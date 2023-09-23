@@ -4,22 +4,22 @@
 
 namespace OS
 {
-	class Handle
-	{
-	public:
-		explicit Handle(HANDLE handle);
+    class Handle
+    {
+    public:
+        explicit Handle(HANDLE handle);
 
-		~Handle();
+        ~Handle();
 
-		Handle(const Handle&) = delete;
-		Handle& operator=(const Handle&) = delete;
+        Handle(const Handle &) = delete;
+        Handle &operator=(const Handle &) = delete;
 
-		Handle(Handle&&) = default;
-		Handle& operator=(Handle&&) = default;
+        Handle(Handle &&) = default;
+        Handle &operator=(Handle &&) = default;
 
-		operator HANDLE() const;
+        operator HANDLE() const;
 
-	private:
-		HANDLE _handle;
-	};
+    private:
+        HANDLE _handle;
+    };
 }
