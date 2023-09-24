@@ -20,7 +20,7 @@ set(PROJECT_SOURCES
         src/os_utils.cpp
         src/process.cpp
         src/handle.cpp
-        src/IcyTowerContext.cpp
+        src/icy_tower_context.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
