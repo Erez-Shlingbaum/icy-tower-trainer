@@ -1,8 +1,4 @@
-cmake_minimum_required (VERSION 3.20)
-project (GAME_TRAINER)
+cmake_minimum_required(VERSION 3.20)
+project(GameTrainer)
 
-set(CMAKE_CXX_STANDARD 23)
-
-
-add_executable(GameTrainer src/main.cpp src/handle.cpp src/os_utils.cpp src/process.cpp)
-target_include_directories(GameTrainer PUBLIC include/)
+add_subdirectory(TrainerGUI)

@@ -3,13 +3,13 @@
 
 namespace OS
 {
-    ProcessList::Iterator::Iterator() :
+    ProcessSnapshot::Iterator::Iterator() :
             _snapshot_handle(),
             _process_entry(),
             _is_iterator_consumed(true)
     {}
 
-    ProcessList::Iterator::Iterator(const HANDLE snapshot_handle) :
+    ProcessSnapshot::Iterator::Iterator(const HANDLE snapshot_handle) :
             _snapshot_handle(snapshot_handle),
             _process_entry(),
             _is_iterator_consumed(false)
@@ -21,7 +21,7 @@ namespace OS
         }
     }
 
-    ProcessList::Iterator &ProcessList::Iterator::operator++()
+    ProcessSnapshot::Iterator &ProcessSnapshot::Iterator::operator++()
     {
         if (_is_iterator_consumed)
         {
@@ -34,41 +34,41 @@ namespace OS
         return *this;
     }
 
-    PROCESSENTRY32 ProcessList::Iterator::operator*() const
+    PROCESSENTRY32 ProcessSnapshot::Iterator::operator*() const
     {
         return _process_entry;
     }
 
-    const PROCESSENTRY32 *ProcessList::Iterator::operator->() const
+    const PROCESSENTRY32 *ProcessSnapshot::Iterator::operator->() const
     {
         return &_process_entry;
     }
 
-    bool operator==(const ProcessList::Iterator &lhs, const ProcessList::Iterator &rhs)
+    bool operator==(const ProcessSnapshot::Iterator &lhs, const ProcessSnapshot::Iterator &rhs)
     {
         return lhs._is_iterator_consumed == rhs._is_iterator_consumed;
     }
 
-    bool operator!=(const ProcessList::Iterator &lhs, const ProcessList::Iterator &rhs)
+    bool operator!=(const ProcessSnapshot::Iterator &lhs, const ProcessSnapshot::Iterator &rhs)
     {
         return !(lhs == rhs);
     }
 
-    ProcessList::ProcessList() :
+    ProcessSnapshot::ProcessSnapshot() :
             _snapshot_handle(_create_snapshot())
     {}
 
-    ProcessList::Iterator ProcessList::begin() const
+    ProcessSnapshot::Iterator ProcessSnapshot::begin() const
     {
         return Iterator{_snapshot_handle};
     }
 
-    ProcessList::Iterator ProcessList::end()
+    ProcessSnapshot::Iterator ProcessSnapshot::end()
     {
         return Iterator{};
     }
 
-    Handle ProcessList::_create_snapshot()
+    Handle ProcessSnapshot::_create_snapshot()
     {
         const HANDLE snapshot_handle = CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
         if (snapshot_handle == INVALID_HANDLE_VALUE)
@@ -80,7 +80,7 @@ namespace OS
 
     std::vector<PROCESSENTRY32> get_running_processes()
     {
-        const ProcessList process_list{};
+        const ProcessSnapshot process_list{};
         return std::vector<PROCESSENTRY32>{process_list.begin(), process_list.end()};
     }
 }

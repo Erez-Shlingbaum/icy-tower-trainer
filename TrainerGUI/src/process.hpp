@@ -31,7 +31,7 @@ namespace OS
             requires(std::is_trivial_v<T>)
         void write_memory(uintptr_t address, const T &data) const
         {
-            write_memory(address, std::span{data, sizeof(data)});
+            write_memory(address, std::span{reinterpret_cast<const std::byte*>(&data), sizeof(data)});
         }
 
 

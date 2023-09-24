@@ -11,17 +11,17 @@
 
 namespace OS
 {
-	class ProcessList
+	class ProcessSnapshot
 	{
 	public:
 		class Iterator
 		{
 		public:
-			using iterator_category = std::forward_iterator_tag;
+			using iterator_category = std::output_iterator_tag;
 			using value_type = PROCESSENTRY32;
 			using pointer = PROCESSENTRY32*;
 			using reference = PROCESSENTRY32&;
-			using difference_type = size_t;
+            using difference_type = size_t;
 
 			Iterator();
 			explicit Iterator(HANDLE snapshot_handle);
@@ -41,7 +41,7 @@ namespace OS
 			bool _is_iterator_consumed;
 		};
 
-		ProcessList();
+		ProcessSnapshot();
 
 		[[nodiscard]] Iterator begin() const;
 		[[nodiscard]] static Iterator end() ;
@@ -52,5 +52,5 @@ namespace OS
 		Handle _snapshot_handle;
 	};
 
-	std::vector<PROCESSENTRY32> get_running_processes();
+    std::vector<PROCESSENTRY32> get_running_processes();
 }
